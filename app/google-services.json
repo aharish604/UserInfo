@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "154491690196",
+    "firebase_url": "https://userinfo-25273-default-rtdb.firebaseio.com",
+    "project_id": "userinfo-25273",
+    "storage_bucket": "userinfo-25273.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154491690196:android:5b7b0b86ed0965f808af41",
+        "android_client_info": {
+          "package_name": "com.mobikasa.userinfo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154491690196-q1jojempinluana50hnpfji8ehvs4vo8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm2S_h7WUwdsYHlRmsFS-9SqCLibGcdEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154491690196-q1jojempinluana50hnpfji8ehvs4vo8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
