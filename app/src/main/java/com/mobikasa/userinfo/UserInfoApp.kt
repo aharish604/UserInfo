@@ -20,6 +20,7 @@ import androidx.annotation.RequiresPermission
 import androidx.lifecycle.LifecycleOwner
 import androidx.work.Constraints
 import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -27,6 +28,7 @@ import com.mobikasa.userinfo.Utils.Constants
 import com.mobikasa.userinfo.Utils.RTPermissions
 import com.mobikasa.userinfo.Utils.SharedPref
 import com.mobikasa.userinfo.Utils.TimeUtil
+import com.mobikasa.userinfo.WorkManagers.DemoWorkManager
 import com.mobikasa.userinfo.WorkManagers.UploadContacts
 import com.mobikasa.userinfo.WorkManagers.UploadImages
 import com.mobikasa.userinfo.db.*
@@ -36,6 +38,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
+import java.util.concurrent.TimeUnit
 import java.util.jar.Manifest
 import kotlin.collections.ArrayList
 
@@ -64,23 +67,17 @@ class UserInfoApp:Application() {
         val android_id: String = Settings.Secure.getString(applicationContext.contentResolver,
             Settings.Secure.ANDROID_ID)
         val model = Build.MANUFACTURER + Build.MODEL
-
-
-
-
         val timestamp = TimeUtil().getUTCTime()
 
         Constants.setDeviceToken(applicationContext(),android_id)
-
         insertHeaderTable(ipAddress,model, android_id)
-
         postHeaderTable(ipAddress,model, android_id,timestamp)
 
     }
 
     fun insertHeaderTable(ipAddress:String, model:String, devicetoken:String)
     {
-        val userinfoTable = HeaderEntity(ipAddress, model, devicetoken)
+        val userinfoTable = HeaderEntity(ipAddress, model, devicetoken,"")
         MyDataBase.getInstance(UserInfoApp.applicationContext()).HeaderDao()
             .insert(userinfoTable)
     }
@@ -102,6 +99,15 @@ class UserInfoApp:Application() {
                 Log.d(Constants.TAG, "Header Table Updated Sucessfully!") }
             .addOnFailureListener {
                     e -> Log.w(Constants.TAG, "Header Table Failed to Upload!", e) }
+
+    }
+
+    fun periodicdemo()
+    {
+        val workmanager= WorkManager.getInstance(applicationContext)
+        val constraint= Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+        var workrequest=PeriodicWorkRequest.Builder(DemoWorkManager::class.java,15,TimeUnit.MINUTES).setConstraints(constraint).build()
+        workmanager.enqueue(workrequest)
 
     }
 

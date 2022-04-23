@@ -8,4 +8,5 @@ import androidx.room.PrimaryKey
 data class HeaderEntity(@ColumnInfo(name = "ipAddress") var ipAddress: String,
                         @ColumnInfo(name = "device_model") var device_model: String,
                         @ColumnInfo(name = "device_token") var device_token: String,
+                        @ColumnInfo(name = "Locatiion") var location: String,
                         @PrimaryKey @ColumnInfo(name = "sno") var no: Int = 1)

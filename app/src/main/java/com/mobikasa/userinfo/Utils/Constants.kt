@@ -1,8 +1,16 @@
 package com.mobikasa.userinfo.Utils
 
+import android.app.Activity
+import android.app.ActivityManager
 import android.content.Context
+import android.util.Log
 
 class Constants {
+
+
+    object BUNDLE_KEYS {
+        const val SERVICE_TYPE = "service_type"
+    }
 
     companion object{
 
@@ -31,6 +39,21 @@ class Constants {
             return SharedPref(applicationContext).getValueString(SharedPref.KEY_NAMES.Device_TOKEN)
         }
 
+        fun isMyServiceRunning(serviceClass: Class<*>, mActivity: Activity): Boolean {
+            val manager: ActivityManager =
+                mActivity.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            for (service in manager.getRunningServices(Int.MAX_VALUE)) {
+                if (serviceClass.name == service.service.className) {
+                    Log.i("Service status", "Running")
+                    return true
+                }
+            }
+            Log.i("Service status", "Not running")
+            return false
+        }
+
+
+
     }
 
     object Collections{
@@ -50,7 +73,10 @@ class Constants {
 
 
     }
-
+    enum class SERVICE {
+        START,
+        CLOSE
+    }
 
 
 

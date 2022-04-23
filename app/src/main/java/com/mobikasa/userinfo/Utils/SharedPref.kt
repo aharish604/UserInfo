@@ -8,7 +8,8 @@ class SharedPref(val context: Context) {
     private val PREFS_NAME = "userinfo"
         val sharedPref: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-        object KEY_NAMES{
+
+       object KEY_NAMES{
             const val Device_TOKEN = "device_token"
         }
 
